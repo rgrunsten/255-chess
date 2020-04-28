@@ -21,4 +21,14 @@ public class Square {
     public Piece getPiece(){return this.piece ;}
     public void setPiece(Piece inPiece){ this.piece = inPiece ;}
 
+    public void takeSquare(Piece piece){
+        // If another piece is present on this square already, kill it
+        // then move the passed piece objcet to this square
+        if (this.piece != null) {
+            this.piece.setAlive(false);
+        }
+        // Place the passed piece on this square
+        this.piece = piece;
+    }
+
 }

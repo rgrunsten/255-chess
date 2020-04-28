@@ -6,7 +6,7 @@ import java.util.List;
 public class Player {
     public int color;
     private List<Piece> playerPieces = new ArrayList<>();
-    //private List<Move> playerMoves = new ArrayList<>();
+    private List<Move> playerMoves = new ArrayList<>();
     
     public Player(int color) {
         super();
@@ -14,12 +14,19 @@ public class Player {
         initializePieces();
     }
 
-    public int getColor() {
-        return color;
-    }
+    public int getColor() { return color ;}
+    public List<Piece> getPlayerPieces() { return playerPieces ;}
 
-    public List<Piece> getPlayerPieces() {
-        return playerPieces;
+    public void addMove(Move mv) {
+        playerMoves.add(new Move(mv.getPiece(), mv.getDestX(), mv.getDestY()));
+    }
+    public Move getCurrentMove() {
+        //make this a counter of moves
+        return playerMoves.get(0);
+    }
+    public Move removeCurrentMove() {
+        //make this a counter of moves
+        return playerMoves.get(0);
     }
 
     public void initializePieces(){

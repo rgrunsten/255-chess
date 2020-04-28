@@ -29,6 +29,9 @@ public abstract class Piece {
 	public int getY() { return y ;}
 	public void setY(int y) { this.y = y ;}
 
+	public Player getPlayer() { return player ;}
+	//public void setPlayer(Player player) { this.player = player ;}
+
 	/**
 	* Function for whether a piece can move to a destination legally
 	* @param destX	the destination x coordinate
