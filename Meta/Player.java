@@ -17,16 +17,12 @@ public class Player {
     public int getColor() { return color ;}
     public List<Piece> getPlayerPieces() { return playerPieces ;}
 
+    //make this use a counter of moves? otherwise this may be inelegant
+    public Move getCurrentMove() { return playerMoves.get(0) ;}
+    public void removeCurrentMove() { playerMoves.remove(0) ;}
+    
     public void addMove(Move mv) {
         playerMoves.add(new Move(mv.getPiece(), mv.getDestX(), mv.getDestY()));
-    }
-    public Move getCurrentMove() {
-        //make this a counter of moves
-        return playerMoves.get(0);
-    }
-    public Move removeCurrentMove() {
-        //make this a counter of moves
-        return playerMoves.get(0);
     }
 
     public void initializePieces(){

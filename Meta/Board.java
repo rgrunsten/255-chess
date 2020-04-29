@@ -13,6 +13,10 @@ public class Board {
     public boolean setGameOver() { return gameOver;}
 
     public void initialize(Player pla){
+        
+        // Assign player their starting pieces
+        pla.initializePieces();
+        
         // Grabs each piece a player owns, gets the piece's x and y coordinates, 
         // and places the piece on that square
         for(int i = 0; i < pla.getPlayerPieces().size(); i++){
@@ -31,16 +35,14 @@ public class Board {
             pla.removeCurrentMove();
             return false;
         }
-        // Check if player is moving into their own piece
-        if(squares[mv.destX][mv.destY].getPiece().getPlayer().getColor() 
-        == pla.getColor()) {
+        // If move bumps into own piece, cancel it and return false
+        if (squares[mv.destX][mv.destY].getPiece().getPlayer().getColor() == pla.getColor()) {
+            pla.removeCurrentMove();
             return false;
+        } else {
+            // Move the Piece and return true
+            squares[mv.destX][mv.destY].takeSquare(piece);
+            return true;
         }
-        // Move the Piece
-        squares[mv.destX][mv.destY].takeSquare(piece);
-        return true;
-
-        
-        
     }
 }

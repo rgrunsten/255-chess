@@ -9,13 +9,13 @@ public class Queen extends Piece {
 
     /**
 	* Queen legal move: essentially rook + bishop combined
-    * @param finalX the final x coordinate
-    * @param finalY the final Y coordinate
-	* @param player	player who owns the piece
+    * @param destX  the destination x coordinate
+    * @param destY  the destination y coordinate
+    * @return       boolean whether move is legal
     */
-    public boolean isLegalMovement(int finalX, int finalY) {
-        int xDiff = Math.abs(finalX - this.x);
-        int yDiff = Math.abs(finalY - this.y);
+    public boolean isLegalMovement(int destX, int destY) {
+        int xDiff = Math.abs(destX - this.x);
+        int yDiff = Math.abs(destY - this.y);
         if (xDiff > 0 && yDiff == 0) {
             return true;
         }
