@@ -1,7 +1,9 @@
 package GUI;
 
 import java.awt.*;
+import Meta.*;
 import javax.swing.*;
+import Pieces.*;
 import java.awt.image.BufferedImage;
 
 public class ChessGUI {
