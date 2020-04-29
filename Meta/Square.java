@@ -19,7 +19,7 @@ public class Square {
     public void setY(int y){this.y = y ;}
 
     public Piece getPiece(){return this.piece ;}
-    public void setPiece(Piece inPiece){ this.piece = inPiece ;}
+    public void setPiece(Piece piece){ this.piece = piece ;}
 
     public void takeSquare(Piece piece){
         // If another piece is present on this square already, kill it

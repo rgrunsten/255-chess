@@ -5,14 +5,15 @@ import Meta.*;
 import javax.swing.*;
 import Pieces.*;
 import java.awt.image.BufferedImage;
+import java.awt.event.*;
 
 public class ChessGUI {
 
-    ChessGUI() { guiInit() ;}
+    public ChessGUI() { guiInit() ;}
 
     private final JPanel gui = new JPanel(new BorderLayout(3, 3));
     private JPanel chessBoard;
-    private final JButton[][] chessSquares = new JButton[8][8];
+    public final JButton[][] chessSquares = new JButton[8][8];
     
     JMenu menu, submenu;  
     JMenuItem i1, i2;
@@ -45,7 +46,6 @@ public class ChessGUI {
                 // Fills button with a transparent 64x64 image
                 final ImageIcon icon = new ImageIcon(
                 new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
-                
                 squareButton.setIcon(icon);
                 
                 //Creates "checker" pattern using modulo
@@ -78,9 +78,23 @@ public class ChessGUI {
             }
         }
     }
-    public JComponent getChessBoard() { return chessBoard ;}
-    public JComponent getGui() { return gui ;}
+    /**Icon bPawn = new ImageIcon("E:\\editicon.PNG");
+    Icon bKnight = new ImageIcon("E:\\editicon.PNG");
+    Icon bBishop = new ImageIcon("E:\\editicon.PNG");
+    Icon bRook = new ImageIcon("E:\\editicon.PNG");
+    Icon bQueen = new ImageIcon("E:\\editicon.PNG");
+    Icon bKing = new ImageIcon("E:\\editicon.PNG");
+    Icon wPawn = new ImageIcon("E:\\editicon.PNG");
+    Icon wKnight = new ImageIcon("E:\\editicon.PNG");
+    Icon wBishop = new ImageIcon("E:\\editicon.PNG");
+    Icon wRook = new ImageIcon("E:\\editicon.PNG");
+    Icon wQueen = new ImageIcon("E:\\editicon.PNG");
+    Icon wKing = new ImageIcon("E:\\editicon.PNG");*/
 
+    public JComponent getChessBoard() { return chessBoard ;}
+    public JButton getChessSquare(int x, int y) { return chessSquares[x][y] ;}
+    public JComponent getGui() { return gui ;}
+    JButton test = getChessSquare(0,0);
     // This main method is only for testing purposes and was not produced by us
     public static void main(final String[] args) {
         final Runnable r = new Runnable() {

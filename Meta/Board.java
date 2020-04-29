@@ -10,6 +10,7 @@ public class Board {
         squares = new Square[8][8];
     }
 
+    public Square getSquare(int x, int y) { return squares[x][y] ;} 
     public boolean setGameOver() { return gameOver;}
 
     public void initialize(Player pla){
@@ -27,21 +28,22 @@ public class Board {
     }
 
     public boolean makeMove(Player pla) {
-        Move mv = pla.getCurrentMove();
-        Piece piece = mv.getPiece();
-
+        Move sourceMove = pla.getMove(0);
+        Piece piece = sourceMove.getPiece();
+        Move destMove = pla.getMove(1);
+        
         // If move is illegal, cancel it and return false
-        if (!piece.isLegalMovement(mv.destX, mv.destY)) {
-            pla.removeCurrentMove();
+        if (!piece.isLegalMovement(destMove.destX, destMove.destY)) {
+            pla.removeMove(1);
             return false;
         }
         // If move bumps into own piece, cancel it and return false
-        if (squares[mv.destX][mv.destY].getPiece().getPlayer().getColor() == pla.getColor()) {
-            pla.removeCurrentMove();
+        if (squares[destMove.destX][destMove.destY].getPiece().getPlayer().getColor() == pla.getColor()) {
+            pla.removeMove(1);
             return false;
         } else {
             // Move the Piece and return true
-            squares[mv.destX][mv.destY].takeSquare(piece);
+            squares[destMove.destX][destMove.destY].takeSquare(piece);
             return true;
         }
     }

@@ -1,6 +1,7 @@
 package Pieces;
 import Meta.*;
 
+
 public abstract class Piece {
 	public int x, y;
 	public Player player;

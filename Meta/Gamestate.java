@@ -1,5 +1,9 @@
 package Meta;
 import Pieces.*;
+import GUI.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Gamestate {
     static Board board;
@@ -10,24 +14,40 @@ public class Gamestate {
         board = new Board();
     }
 
-    public void executeTurn(Player pla) {
+    public void executeTurn(int x, int y, Piece piece) {
         // Player must make a valid move
         do{
-            //Move mv = new Move( [MOVE INPUT COMES FROM GUI] );
-            //pla.addMove(mv);
-        }while(!board.makeMove(pla));
+            Move mv = new Move(piece, x, y);
+            piece.getPlayer().addMove(mv);
+        }while(!board.makeMove(piece.getPlayer()));
     }
 
     public void runGame() {
         board.initialize(p1);
         board.initialize(p2);
 
-        // in below while loop, insert a check for if a player has lost
-        // checkmate detection is difficult, might just make it...
-        // so you capture king itself in order to win (king.isAlive() == false)
-        while (true) {
-            executeTurn(p1);
-            executeTurn(p2);
+        ChessGUI mainGUI = new ChessGUI();
+
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                int actionX = x;
+                int actionY = y;
+                mainGUI.getChessSquare(x, y).addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        int clickedX = actionX;
+                        int clickedY = actionY;
+                        Piece clickedPiece = board.getSquare(actionX, actionY).getPiece();
+                        Player pieceOwner = clickedPiece.getPlayer();
+                        Move mv = new Move(clickedPiece, clickedX, clickedY);
+                        if (pieceOwner.getMoveList().size() < 2) {
+                            pieceOwner.addMove(mv);
+                        } else {
+                            pieceOwner.addMove(mv);
+                            board.makeMove(pieceOwner);
+                        }
+                    }
+                });
+            }
         }
     }
 }

@@ -17,9 +17,11 @@ public class Player {
     public int getColor() { return color ;}
     public List<Piece> getPlayerPieces() { return playerPieces ;}
 
+    public List<Move> getMoveList() { return playerMoves ;}
+
     //make this use a counter of moves? otherwise this may be inelegant
-    public Move getCurrentMove() { return playerMoves.get(0) ;}
-    public void removeCurrentMove() { playerMoves.remove(0) ;}
+    public Move getMove(int i) { return playerMoves.get(i) ;}
+    public void removeMove(int i) { playerMoves.remove(i) ;}
     
     public void addMove(Move mv) {
         playerMoves.add(new Move(mv.getPiece(), mv.getDestX(), mv.getDestY()));
