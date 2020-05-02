@@ -27,10 +27,6 @@ public class Knight extends Piece {
     * @param destY  the destination y coordinate
     * @return       boolean whether move is legal
     */
-    public boolean isLegalMovement(int destX, int destY) {
-        return isLogical(destX, destY);
-    }
-
     public boolean isLogical(int destX, int destY) {
         int xDiff = Math.abs(destX - this.x); 
         int yDiff = Math.abs(destY - this.y); 
