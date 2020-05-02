@@ -21,13 +21,13 @@ public class Gamestate {
         board = new Board();
     }
 
-    public void executeTurn(int x, int y, Piece piece) {
+    /*public void executeTurn(int x, int y, Piece piece) {
         // Player must make a valid move
         do{
             Move mv = new Move(piece, x, y);
             piece.getPlayer().addMove(mv);
         }while(!board.makeMove(piece.getPlayer()));
-    }
+    }*/
 
     public void runGame() {
         board.initialize(p1);
@@ -62,6 +62,7 @@ public class Gamestate {
             for (int y = 0; y < 8; y++) {
                 int actionX = x;
                 int actionY = y;
+
                 mainGUI.getChessSquare(x, y).addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         int clickedX = actionX;
@@ -69,26 +70,48 @@ public class Gamestate {
                         if (board.getSquare(actionX, actionY).getPiece() != null) {
                             Piece clickedPiece = board.getSquare(actionX, actionY).getPiece();
                             Player pieceOwner = clickedPiece.getPlayer();
+                            Player opponent;
                             Move mv = new Move(clickedPiece, clickedX, clickedY);
 
                             if (pieceOwner.getMoveList().size() < 1) {
-                                pieceOwner.addMove(mv);
-
+                                
                             } else {
+                                
+                            }
+
+                            if (!(p1.getMoveList().size() == 1 || p2.getMoveList().size() == 1)){
                                 pieceOwner.addMove(mv);
-                                board.makeMove(pieceOwner);
-                                int sourceX = pieceOwner.getMove(0).getDestX();
-                                int sourceY = pieceOwner.getMove(0).getDestY();
+                            }
+                            else if (p1.getMoveList().size() == 1) {
+                                p1.addMove(mv);
+                                int sourceX = p1.getMove(0).getDestX();
+                                int sourceY = p1.getMove(0).getDestY();
+                                board.makeMove(p1);
                                 try {
-                                    mainGUI.getChessSquare(clickedX, clickedY).setIcon(new ImageIcon(ImageIO.read(getClass().getResource(board.getSquare(clickedX, clickedY).getPiece().getImageString()))));
-                                    
+                                    mainGUI.getChessSquare(clickedX, clickedY).setIcon(new ImageIcon(ImageIO.read(getClass().getResource(board.getSquare(sourceX, sourceY).getPiece().getImageString()))));
+                                            
                                     System.out.println(sourceX + ", " + sourceY);
                                     mainGUI.getChessSquare(sourceX, sourceY).setIcon(new ImageIcon(new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB)));
-
+        
                                 } catch (IOException exception) {}
-                                
-
                             }
+                            else if (p2.getMoveList().size() == 1) {
+                                p2.addMove(mv);
+                                int sourceX = p2.getMove(0).getDestX();
+                                int sourceY = p2.getMove(0).getDestY();
+                                board.makeMove(p2);
+                                try {
+                                    mainGUI.getChessSquare(clickedX, clickedY).setIcon(new ImageIcon(ImageIO.read(getClass().getResource(board.getSquare(sourceX, sourceY).getPiece().getImageString()))));
+                                            
+                                    System.out.println(sourceX + ", " + sourceY);
+                                    mainGUI.getChessSquare(sourceX, sourceY).setIcon(new ImageIcon(new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB)));
+        
+                                } catch (IOException exception) {}
+                            }
+                            
+
+                            
+
                         } else {
                             if (p1.getMoveList().size() == 1) {
                                 p1.playerMoves.add(new Move(null, clickedX, clickedY));
@@ -97,7 +120,6 @@ public class Gamestate {
                                 board.makeMove(p1);
                                 try {
                                     mainGUI.getChessSquare(clickedX, clickedY).setIcon(new ImageIcon(ImageIO.read(getClass().getResource(board.getSquare(clickedX, clickedY).getPiece().getImageString()))));
-                                    
                                     System.out.println(sourceX + ", " + sourceY);
                                     mainGUI.getChessSquare(sourceX, sourceY).setIcon(new ImageIcon(new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB)));
                                 } catch (IOException exception) {}
@@ -111,10 +133,8 @@ public class Gamestate {
                                 board.makeMove(p2);
                                 try {
                                     mainGUI.getChessSquare(clickedX, clickedY).setIcon(new ImageIcon(ImageIO.read(getClass().getResource(board.getSquare(clickedX, clickedY).getPiece().getImageString()))));
-                                    
                                     System.out.println(sourceX + ", " + sourceY);
                                     mainGUI.getChessSquare(sourceX, sourceY).setIcon(new ImageIcon(new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB)));
-
                                 } catch (IOException exception) {}
                                 
                                 
