@@ -1,10 +1,24 @@
 package Pieces;
 import Meta.*;
+import javax.imageio.ImageIO;
+import java.io.IOException;
 
 public class Pawn extends Piece {
 
     public Pawn(int x, int y, Player player, boolean alive) {
         super(x, y, player, alive);
+        if (this.player.getColor() == 1) {
+            imgString = "/Assets/wPawn.png";
+        } else {
+            imgString = "/Assets/bPawn.png";
+        }
+        try {
+            if (this.img == null) {
+                this.img = ImageIO.read(getClass().getResource(imgString));
+            }
+        } catch (IOException e) {
+            System.err.println("File missing: " + e.getMessage());
+        }
     }
 
     /**
@@ -13,9 +27,14 @@ public class Pawn extends Piece {
 	* @param destY	the destination y coordinate
 	* @return	    boolean whether move is legal
 	*/
-	public boolean isLegalMovement(int destX, int destY) {
+    public boolean isLegalMovement(int destX, int destY) {
+        return isLogical(destX, destY);
+    }
+
+    public boolean isLogical(int destX, int destY) {
         int xDiff = Math.abs(destX - this.x);
         int yDiff = Math.abs(destY - this.y);
+        System.err.println("DIFF: " + xDiff + ", " + yDiff);
 
         // Pawn's capture rules
         if (xDiff == 1 && yDiff == 1) {
@@ -26,9 +45,11 @@ public class Pawn extends Piece {
         || (this.y == 6 && this.player.getColor() == 2)) {
             yDiff--;
         }
-        else if (yDiff <= 1 && xDiff == 0){
+        if (yDiff <= 1 && xDiff == 0){
             return true;
         }
         return false;
     }
+
+    
 }
